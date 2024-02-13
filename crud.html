@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD operations</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Todo App</h1>
+      <form id="new-task-form">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Add Task</label>
+          <input
+            type="text"
+            class="form-control"
+            aria-describedby="emailHelp"
+            placeholder="enter the task"
+            id="new-task-input"
+          />
+        </div>
+        <button type="submit" class="btn btn-success" id="new-task-submit">
+          Add Task
+        </button>
+      </form>
+      <div class="task-list">
+        <h1 class="mt-4 mb-3">Tasks</h1>
+        <div class="tasks">
+          <!-- <div class="task">
+            <div class="content">
+              <input
+                type="text"
+                value="My Item"
+                readonly
+                class="text form-control mb-2"
+              />
+            </div>
+            <div class="action">
+              <button class="btn btn-danger delete">Delete</button>
+              <button class="btn btn-warning edit">Edit</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const form = document.querySelector("#new-task-form");
+    const input = document.querySelector("#new-task-input");
+    const tasks = document.querySelector(".tasks");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      //   console.log("clicked");
+      const userData = input.value;
+      //   console.log(userData);
+      if (!userData) {
+        alert("please give any task before submit");
+        return;
+      }
+
+      const task = document.createElement("div");
+      task.classList.add("task");
+      task.classList.add("mb-3")
+
+      const content = document.createElement("div");
+      content.classList.add("content");
+
+      const task_input = document.createElement("input");
+      task_input.classList.add("text");
+      task_input.classList.add("form-control");
+      task_input.classList.add("mb-2");
+      task_input.value = userData;
+      task_input.setAttribute("readonly", "readonly");
+      task_input.type = "text";
+
+      content.appendChild(task_input);
+      task.appendChild(content);
+      tasks.appendChild(task);
+
+      const actions= document.createElement('div');
+      actions.classList.add("actions")
+
+      const task_edit=document.createElement('button');
+      task_edit.classList.add("edit");
+      task_edit.classList.add("btn");
+      task_edit.classList.add("btn-warning");
+      task_edit.innerHTML="Edit";
+
+      const task_delete=document.createElement('button')
+      task_delete.classList.add("delete");
+      task_delete.classList.add("btn");
+      task_delete.classList.add("btn-danger");
+      task_delete.classList.add("mx-2");
+      task_delete.innerHTML="Delete";
+
+      actions.appendChild(task_edit);
+      actions.appendChild(task_delete);
+      task.appendChild(actions)
+
+      input.value=" "
+
+    //   Edit user data
+    task_edit.addEventListener('click',()=>{
+        if(task_edit.innerHTML=="Edit"){
+        task_input.removeAttribute("readonly");
+        task_edit.innerHTML="Save"
+        task_input.focus();
+        }
+        else{
+            task_input.setAttribute("readonly","readonly");
+            task_edit.innerHTML="Edit";
+        }
+    })
+
+    // Delete user data
+    task_delete.addEventListener("click",()=>{
+        tasks.remove(task);
+    })
+    });
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+</html>
